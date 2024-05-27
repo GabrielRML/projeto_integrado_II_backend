@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="especialidadeEspecialista">
+      <h2 data-cy="especialidadeEspecialistaDetailsHeading">
+        <span appTranslate="clinicalLinkApp.especialidadeEspecialista.detail.title">Especialidade Especialista</span>
+      </h2>
+
+      <hr />
+
+      <app-alert-error></app-alert-error>
+
+      <app-alert></app-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span appTranslate="global.field.id">Código</span></dt>
+        <dd>
+          <span>{{ especialidadeEspecialista.id }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialidadeEspecialista.especialidade">Especialidade</span></dt>
+        <dd>
+          <div *ngIf="especialidadeEspecialista.especialidade">
+            <a [routerLink]="['/especialidade', especialidadeEspecialista.especialidade.id, 'view']">{{
+              especialidadeEspecialista.especialidade.id
+            }}</a>
+          </div>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialidadeEspecialista.especialista">Especialista</span></dt>
+        <dd>
+          <div *ngIf="especialidadeEspecialista.especialista">
+            <a [routerLink]="['/especialista', especialidadeEspecialista.especialista.id, 'view']">{{
+              especialidadeEspecialista.especialista.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span appTranslate="entity.action.back">Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/especialidade-especialista', especialidadeEspecialista.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span appTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

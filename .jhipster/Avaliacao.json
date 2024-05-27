@@ -1,0 +1,42 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527215804",
+  "dto": "mapstruct",
+  "entityTableName": "avaliacao",
+  "fields": [
+    {
+      "fieldName": "assessment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Avaliacao",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "consulta",
+      "otherEntityRelationshipName": "avaliacao",
+      "relationshipName": "consulta",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "especialista",
+      "relationshipName": "avaliado",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "usuario",
+      "relationshipName": "avaliador",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

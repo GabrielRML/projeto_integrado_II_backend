@@ -1,0 +1,26 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527215604",
+  "dto": "mapstruct",
+  "entityTableName": "especialidade",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Especialidade",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "especialidadeEspecialista",
+      "otherEntityRelationshipName": "especialidade",
+      "relationshipName": "especialidadeEspecialista",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

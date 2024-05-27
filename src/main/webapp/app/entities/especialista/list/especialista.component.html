@@ -1,0 +1,253 @@
+<div>
+  <h2 id="page-heading" data-cy="EspecialistaHeading">
+    <span appTranslate="clinicalLinkApp.especialista.home.title">Especialistas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span appTranslate="clinicalLinkApp.especialista.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-especialista"
+        [routerLink]="['/especialista/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span appTranslate="clinicalLinkApp.especialista.home.createLabel">Criar novo Especialista</span>
+      </button>
+    </div>
+  </h2>
+
+  <app-alert-error></app-alert-error>
+
+  <app-alert></app-alert>
+
+  <app-filter [filters]="filters"></app-filter>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="especialistas?.length === 0">
+    <span appTranslate="clinicalLinkApp.especialista.home.notFound">Nenhum Especialista encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="especialistas && especialistas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr appSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" appSortBy="id">
+            <div class="d-flex">
+              <span appTranslate="global.field.id">Código</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="cpf">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.cpf">Cpf</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="identification">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.identification">Identification</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="birthDate">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.birthDate">Birth Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="description">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.description">Description</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="price">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.price">Price</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="timeSession">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.timeSession">Time Session</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="specialistType">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.specialistType">Specialist Type</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="internalUser.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.internalUser">Internal User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="estado.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.estado">Estado</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="cidade.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.cidade">Cidade</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="universidade.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.universidade">Universidade</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="supervisorId.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialista.supervisorId">Supervisor Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let especialista of especialistas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/especialista', especialista.id, 'view']">{{ especialista.id }}</a>
+          </td>
+          <td>{{ especialista.cpf }}</td>
+          <td>{{ especialista.identification }}</td>
+          <td>{{ especialista.birthDate | formatMediumDatetime }}</td>
+          <td>{{ especialista.description }}</td>
+          <td>{{ especialista.price }}</td>
+          <td>{{ especialista.timeSession }}</td>
+          <td appTranslate="{{ 'clinicalLinkApp.SpecialistType.' + especialista.specialistType }}">{{ especialista.specialistType }}</td>
+          <td>
+            {{ especialista.internalUser?.id }}
+          </td>
+          <td>
+            <div *ngIf="especialista.estado">
+              <a [routerLink]="['/estado', especialista.estado.id, 'view']">{{ especialista.estado.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="especialista.cidade">
+              <a [routerLink]="['/cidade', especialista.cidade.id, 'view']">{{ especialista.cidade.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="especialista.universidade">
+              <a [routerLink]="['/universidade', especialista.universidade.id, 'view']">{{ especialista.universidade.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="especialista.supervisorId">
+              <a [routerLink]="['/especialista', especialista.supervisorId.id, 'view']">{{ especialista.supervisorId.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/especialidade-especialista']"
+                [queryParams]="{ 'filter[especialistaId.in]': especialista.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  appTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('clinicalLinkApp.especialista.especialidadeEspecialista' | translate) }"
+                  >Mostrar Especialidade Especialista</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/avaliacao']"
+                [queryParams]="{ 'filter[avaliadoId.in]': especialista.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  appTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('clinicalLinkApp.especialista.avaliacao' | translate) }"
+                  >Mostrar Avaliacao</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/consulta']"
+                [queryParams]="{ 'filter[prestadorId.in]': especialista.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  appTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('clinicalLinkApp.especialista.consulta' | translate) }"
+                  >Mostrar Consulta</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/especialista']"
+                [queryParams]="{ 'filter[supervisorIdId.in]': especialista.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  appTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('clinicalLinkApp.especialista.especialista' | translate) }"
+                  >Mostrar Especialista</span
+                >
+              </button>
+              <a [routerLink]="['/especialista', especialista.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.view">Visualizar</span>
+              </a>
+
+              <a [routerLink]="['/especialista', especialista.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.edit">Editar</span>
+              </a>
+
+              <button type="submit" (click)="delete(especialista)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.delete">Excluir</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="especialistas && especialistas.length > 0">
+    <div class="d-flex justify-content-center">
+      <app-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></app-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

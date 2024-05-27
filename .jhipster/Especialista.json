@@ -1,0 +1,106 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527215404",
+  "dto": "mapstruct",
+  "entityTableName": "especialista",
+  "fields": [
+    {
+      "fieldName": "cpf",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "identification",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "birthDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "timeSession",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "specialistType",
+      "fieldType": "SpecialistType",
+      "fieldValues": "SUPERVISOR,PSICOLOGO,ALUNO"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Especialista",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "relationshipName": "internalUser",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "especialidadeEspecialista",
+      "otherEntityRelationshipName": "especialista",
+      "relationshipName": "especialidadeEspecialista",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "avaliacao",
+      "otherEntityRelationshipName": "avaliado",
+      "relationshipName": "avaliacao",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "consulta",
+      "otherEntityRelationshipName": "prestador",
+      "relationshipName": "consulta",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "especialista",
+      "otherEntityRelationshipName": "supervisorId",
+      "relationshipName": "especialista",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "estado",
+      "otherEntityRelationshipName": "especialista",
+      "relationshipName": "estado",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "cidade",
+      "otherEntityRelationshipName": "especialista",
+      "relationshipName": "cidade",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "universidade",
+      "otherEntityRelationshipName": "especialista",
+      "relationshipName": "universidade",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "especialista",
+      "relationshipName": "supervisorId",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

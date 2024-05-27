@@ -1,0 +1,152 @@
+<div>
+  <h2 id="page-heading" data-cy="ConsultaHeading">
+    <span appTranslate="clinicalLinkApp.consulta.home.title">Consultas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span appTranslate="clinicalLinkApp.consulta.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-consulta"
+        [routerLink]="['/consulta/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span appTranslate="clinicalLinkApp.consulta.home.createLabel">Criar novo Consulta</span>
+      </button>
+    </div>
+  </h2>
+
+  <app-alert-error></app-alert-error>
+
+  <app-alert></app-alert>
+
+  <app-filter [filters]="filters"></app-filter>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="consultas?.length === 0">
+    <span appTranslate="clinicalLinkApp.consulta.home.notFound">Nenhum Consulta encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="consultas && consultas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr appSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" appSortBy="id">
+            <div class="d-flex">
+              <span appTranslate="global.field.id">Código</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="date">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.consulta.date">Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="reason">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.consulta.reason">Reason</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="link">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.consulta.link">Link</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="status">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.consulta.status">Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="avaliacao.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.consulta.avaliacao">Avaliacao</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="prestador.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.consulta.prestador">Prestador</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="cliente.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.consulta.cliente">Cliente</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consulta of consultas; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/consulta', consulta.id, 'view']">{{ consulta.id }}</a>
+          </td>
+          <td>{{ consulta.date | formatMediumDatetime }}</td>
+          <td>{{ consulta.reason }}</td>
+          <td>{{ consulta.link }}</td>
+          <td appTranslate="{{ 'clinicalLinkApp.StatusConsulta.' + consulta.status }}">{{ consulta.status }}</td>
+          <td>
+            <div *ngIf="consulta.avaliacao">
+              <a [routerLink]="['/avaliacao', consulta.avaliacao.id, 'view']">{{ consulta.avaliacao.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="consulta.prestador">
+              <a [routerLink]="['/especialista', consulta.prestador.id, 'view']">{{ consulta.prestador.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="consulta.cliente">
+              <a [routerLink]="['/usuario', consulta.cliente.id, 'view']">{{ consulta.cliente.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <a [routerLink]="['/consulta', consulta.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.view">Visualizar</span>
+              </a>
+
+              <a [routerLink]="['/consulta', consulta.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.edit">Editar</span>
+              </a>
+
+              <button type="submit" (click)="delete(consulta)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.delete">Excluir</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="consultas && consultas.length > 0">
+    <div class="d-flex justify-content-center">
+      <app-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></app-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

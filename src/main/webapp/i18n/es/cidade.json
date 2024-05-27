@@ -1,0 +1,28 @@
+{
+  "clinicalLinkApp": {
+    "cidade": {
+      "home": {
+        "title": "Cidades",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Cidade",
+        "createOrEditLabel": "Crear o editar Cidade",
+        "notFound": "Ningún Cidades encontrado"
+      },
+      "created": "Un nuevo Cidade ha sido creado con el identificador {{ param }}",
+      "updated": "Un Cidade ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Cidade ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Cidade {{ id }}?"
+      },
+      "detail": {
+        "title": "Cidade"
+      },
+      "id": "ID",
+      "nome": "Nome",
+      "sigla": "Sigla",
+      "usuario": "Usuario",
+      "especialista": "Especialista",
+      "estado": "Estado"
+    }
+  }
+}

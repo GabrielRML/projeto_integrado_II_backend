@@ -1,0 +1,113 @@
+<div>
+  <h2 id="page-heading" data-cy="EspecialidadeHeading">
+    <span appTranslate="clinicalLinkApp.especialidade.home.title">Especialidades</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span appTranslate="clinicalLinkApp.especialidade.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-especialidade"
+        [routerLink]="['/especialidade/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span appTranslate="clinicalLinkApp.especialidade.home.createLabel">Criar novo Especialidade</span>
+      </button>
+    </div>
+  </h2>
+
+  <app-alert-error></app-alert-error>
+
+  <app-alert></app-alert>
+
+  <app-filter [filters]="filters"></app-filter>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="especialidades?.length === 0">
+    <span appTranslate="clinicalLinkApp.especialidade.home.notFound">Nenhum Especialidade encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="especialidades && especialidades.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr appSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" appSortBy="id">
+            <div class="d-flex">
+              <span appTranslate="global.field.id">Código</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="name">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.especialidade.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let especialidade of especialidades; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/especialidade', especialidade.id, 'view']">{{ especialidade.id }}</a>
+          </td>
+          <td>{{ especialidade.name }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/especialidade-especialista']"
+                [queryParams]="{ 'filter[especialidadeId.in]': especialidade.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  appTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('clinicalLinkApp.especialidade.especialidadeEspecialista' | translate) }"
+                  >Mostrar Especialidade Especialista</span
+                >
+              </button>
+              <a [routerLink]="['/especialidade', especialidade.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.view">Visualizar</span>
+              </a>
+
+              <a [routerLink]="['/especialidade', especialidade.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.edit">Editar</span>
+              </a>
+
+              <button type="submit" (click)="delete(especialidade)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.delete">Excluir</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="especialidades && especialidades.length > 0">
+    <div class="d-flex justify-content-center">
+      <app-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></app-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

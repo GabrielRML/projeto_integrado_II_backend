@@ -1,0 +1,27 @@
+{
+  "clinicalLinkApp": {
+    "universidade": {
+      "home": {
+        "title": "Universidades",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Universidade",
+        "createOrEditLabel": "Crear o editar Universidade",
+        "notFound": "Ningún Universidades encontrado"
+      },
+      "created": "Un nuevo Universidade ha sido creado con el identificador {{ param }}",
+      "updated": "Un Universidade ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Universidade ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Universidade {{ id }}?"
+      },
+      "detail": {
+        "title": "Universidade"
+      },
+      "id": "ID",
+      "cnpj": "Cnpj",
+      "name": "Name",
+      "cep": "Cep",
+      "especialista": "Especialista"
+    }
+  }
+}

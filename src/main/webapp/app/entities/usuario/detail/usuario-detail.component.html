@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="usuario">
+      <h2 data-cy="usuarioDetailsHeading"><span appTranslate="clinicalLinkApp.usuario.detail.title">Usuario</span></h2>
+
+      <hr />
+
+      <app-alert-error></app-alert-error>
+
+      <app-alert></app-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span appTranslate="global.field.id">Código</span></dt>
+        <dd>
+          <span>{{ usuario.id }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.usuario.cpf">Cpf</span></dt>
+        <dd>
+          <span>{{ usuario.cpf }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.usuario.birthDate">Birth Date</span></dt>
+        <dd>
+          <span>{{ usuario.birthDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.usuario.internalUser">Internal User</span></dt>
+        <dd>
+          <span>{{ usuario.internalUser?.id }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.usuario.estado">Estado</span></dt>
+        <dd>
+          <div *ngIf="usuario.estado">
+            <a [routerLink]="['/estado', usuario.estado.id, 'view']">{{ usuario.estado.id }}</a>
+          </div>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.usuario.cidade">Cidade</span></dt>
+        <dd>
+          <div *ngIf="usuario.cidade">
+            <a [routerLink]="['/cidade', usuario.cidade.id, 'view']">{{ usuario.cidade.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span appTranslate="entity.action.back">Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/usuario', usuario.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span appTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

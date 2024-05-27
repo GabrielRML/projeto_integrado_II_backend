@@ -1,0 +1,9 @@
+export enum StatusConsulta {
+  CONFIRMADA = 'CONFIRMADA',
+
+  CONCLUIDA = 'CONCLUIDA',
+
+  PENDENTE = 'PENDENTE',
+
+  CANCELADA = 'CANCELADA',
+}

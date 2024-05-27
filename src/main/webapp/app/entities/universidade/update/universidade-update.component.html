@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="app-universidade-heading"
+        data-cy="UniversidadeCreateUpdateHeading"
+        appTranslate="clinicalLinkApp.universidade.home.createOrEditLabel"
+      >
+        Criar ou editar Universidade
+      </h2>
+
+      <div>
+        <app-alert-error></app-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" appTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.universidade.cnpj" for="field_cnpj">Cnpj</label>
+          <input type="text" class="form-control" name="cnpj" id="field_cnpj" data-cy="cnpj" formControlName="cnpj" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.universidade.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.universidade.cep" for="field_cep">Cep</label>
+          <input type="text" class="form-control" name="cep" id="field_cep" data-cy="cep" formControlName="cep" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span appTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span appTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

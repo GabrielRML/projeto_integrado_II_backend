@@ -1,0 +1,119 @@
+application{
+	config{
+    	baseName ClinicalLink
+        packageName com.clinicallink.app
+        applicationType monolith
+        authenticationType jwt
+        buildTool gradle
+        cacheProvider caffeine
+        databaseType sql
+        devDatabaseType mysql
+        prodDatabaseType mysql
+        dtoSuffix Dto
+        enableHibernateCache true
+        enableTranslation true
+        clientFramework angularX
+        clientPackageManager npm
+        clientTheme flatly
+        languages [en, es, pt-br]
+        nativeLanguage pt-br
+        jhiPrefix app
+    }
+    entities *
+}
+
+entity Usuario {
+	cpf String
+    birthDate Instant
+}
+
+entity Especialista {
+	cpf String
+    identification String
+    birthDate Instant
+	description String
+    price Double
+    timeSession Integer
+    specialistType SpecialistType
+}
+
+entity Universidade {
+	cnpj String
+	name String
+    cep String
+}
+
+entity Especialidade {
+	name String
+}
+
+entity EspecialidadeEspecialista { }
+
+entity Avaliacao {
+    assessment String
+    note Integer
+}
+
+entity Consulta {
+	date Instant
+    reason String
+    link String
+    status StatusConsulta
+}
+
+entity Estado {
+	nome String
+    sigla String
+}
+
+entity Cidade {
+	nome String
+    sigla String
+}
+
+relationship OneToOne {
+    Usuario{internalUser} to User with builtInEntity
+    Especialista{internalUser} to User with builtInEntity
+    Consulta to Avaliacao
+}
+
+relationship OneToMany {
+	Especialidade to EspecialidadeEspecialista
+    Especialista to EspecialidadeEspecialista
+}
+
+relationship OneToMany {
+	Estado to Cidade
+    Estado to Usuario
+    Cidade to Usuario
+    Estado to Especialista
+    Cidade to Especialista
+    
+	Universidade to Especialista
+	Especialista to Avaliacao{avaliado}
+	Usuario to Avaliacao{avaliador}
+	Especialista to Consulta{prestador}
+	Usuario to Consulta{cliente}
+    Especialista to Especialista{supervisorId}
+}
+
+enum SpecialistType {
+	SUPERVISOR,
+	PSICOLOGO,
+    ALUNO
+}
+
+enum StatusConsulta {
+	CONFIRMADA,
+    CONCLUIDA,
+    PENDENTE,
+    CANCELADA
+}
+
+paginate all with pagination
+ 
+service all with serviceImpl
+ 
+dto all with mapstruct
+ 
+filter *

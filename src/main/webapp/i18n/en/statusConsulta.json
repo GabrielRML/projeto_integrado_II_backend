@@ -1,0 +1,11 @@
+{
+  "clinicalLinkApp": {
+    "StatusConsulta": {
+      "null": "",
+      "CONFIRMADA": "CONFIRMADA",
+      "CONCLUIDA": "CONCLUIDA",
+      "PENDENTE": "PENDENTE",
+      "CANCELADA": "CANCELADA"
+    }
+  }
+}

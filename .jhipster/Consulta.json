@@ -1,0 +1,51 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527215904",
+  "dto": "mapstruct",
+  "entityTableName": "consulta",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "reason",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "link",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "StatusConsulta",
+      "fieldValues": "CONFIRMADA,CONCLUIDA,PENDENTE,CANCELADA"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Consulta",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "avaliacao",
+      "otherEntityRelationshipName": "consulta",
+      "relationshipName": "avaliacao",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "especialista",
+      "relationshipName": "prestador",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "usuario",
+      "relationshipName": "cliente",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

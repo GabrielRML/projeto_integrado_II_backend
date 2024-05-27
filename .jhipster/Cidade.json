@@ -1,0 +1,44 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527220104",
+  "dto": "mapstruct",
+  "entityTableName": "cidade",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sigla",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Cidade",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "usuario",
+      "otherEntityRelationshipName": "cidade",
+      "relationshipName": "usuario",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "especialista",
+      "otherEntityRelationshipName": "cidade",
+      "relationshipName": "especialista",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "estado",
+      "otherEntityRelationshipName": "cidade",
+      "relationshipName": "estado",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

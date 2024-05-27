@@ -1,0 +1,34 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527215504",
+  "dto": "mapstruct",
+  "entityTableName": "universidade",
+  "fields": [
+    {
+      "fieldName": "cnpj",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cep",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Universidade",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "especialista",
+      "otherEntityRelationshipName": "universidade",
+      "relationshipName": "especialista",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

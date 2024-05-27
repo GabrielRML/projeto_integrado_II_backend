@@ -1,0 +1,166 @@
+<div>
+  <h2 id="page-heading" data-cy="UsuarioHeading">
+    <span appTranslate="clinicalLinkApp.usuario.home.title">Usuarios</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span appTranslate="clinicalLinkApp.usuario.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-usuario"
+        [routerLink]="['/usuario/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span appTranslate="clinicalLinkApp.usuario.home.createLabel">Criar novo Usuario</span>
+      </button>
+    </div>
+  </h2>
+
+  <app-alert-error></app-alert-error>
+
+  <app-alert></app-alert>
+
+  <app-filter [filters]="filters"></app-filter>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="usuarios?.length === 0">
+    <span appTranslate="clinicalLinkApp.usuario.home.notFound">Nenhum Usuario encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="usuarios && usuarios.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr appSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" appSortBy="id">
+            <div class="d-flex">
+              <span appTranslate="global.field.id">Código</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="cpf">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.usuario.cpf">Cpf</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="birthDate">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.usuario.birthDate">Birth Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="internalUser.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.usuario.internalUser">Internal User</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="estado.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.usuario.estado">Estado</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" appSortBy="cidade.id">
+            <div class="d-flex">
+              <span appTranslate="clinicalLinkApp.usuario.cidade">Cidade</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/usuario', usuario.id, 'view']">{{ usuario.id }}</a>
+          </td>
+          <td>{{ usuario.cpf }}</td>
+          <td>{{ usuario.birthDate | formatMediumDatetime }}</td>
+          <td>
+            {{ usuario.internalUser?.id }}
+          </td>
+          <td>
+            <div *ngIf="usuario.estado">
+              <a [routerLink]="['/estado', usuario.estado.id, 'view']">{{ usuario.estado.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="usuario.cidade">
+              <a [routerLink]="['/cidade', usuario.cidade.id, 'view']">{{ usuario.cidade.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/avaliacao']"
+                [queryParams]="{ 'filter[avaliadorId.in]': usuario.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  appTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('clinicalLinkApp.usuario.avaliacao' | translate) }"
+                  >Mostrar Avaliacao</span
+                >
+              </button>
+              <button
+                type="submit"
+                [routerLink]="['/consulta']"
+                [queryParams]="{ 'filter[clienteId.in]': usuario.id }"
+                class="btn btn-info btn-sm"
+                data-cy="filterOtherEntityButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span
+                  class="d-none d-md-inline"
+                  appTranslate="entity.action.show"
+                  [translateValues]="{ otherEntity: ('clinicalLinkApp.usuario.consulta' | translate) }"
+                  >Mostrar Consulta</span
+                >
+              </button>
+              <a [routerLink]="['/usuario', usuario.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.view">Visualizar</span>
+              </a>
+
+              <a [routerLink]="['/usuario', usuario.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.edit">Editar</span>
+              </a>
+
+              <button type="submit" (click)="delete(usuario)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" appTranslate="entity.action.delete">Excluir</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="usuarios && usuarios.length > 0">
+    <div class="d-flex justify-content-center">
+      <app-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></app-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="app-avaliacao-heading" data-cy="AvaliacaoCreateUpdateHeading" appTranslate="clinicalLinkApp.avaliacao.home.createOrEditLabel">
+        Criar ou editar Avaliacao
+      </h2>
+
+      <div>
+        <app-alert-error></app-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" appTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.avaliacao.assessment" for="field_assessment">Assessment</label>
+          <input
+            type="text"
+            class="form-control"
+            name="assessment"
+            id="field_assessment"
+            data-cy="assessment"
+            formControlName="assessment"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.avaliacao.note" for="field_note">Note</label>
+          <input type="number" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.avaliacao.avaliado" for="field_avaliado">Avaliado</label>
+          <select
+            class="form-control"
+            id="field_avaliado"
+            data-cy="avaliado"
+            name="avaliado"
+            formControlName="avaliado"
+            [compareWith]="compareEspecialista"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="especialistaOption" *ngFor="let especialistaOption of especialistasSharedCollection">
+              {{ especialistaOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.avaliacao.avaliador" for="field_avaliador">Avaliador</label>
+          <select
+            class="form-control"
+            id="field_avaliador"
+            data-cy="avaliador"
+            name="avaliador"
+            formControlName="avaliador"
+            [compareWith]="compareUsuario"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="usuarioOption" *ngFor="let usuarioOption of usuariosSharedCollection">{{ usuarioOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span appTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span appTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

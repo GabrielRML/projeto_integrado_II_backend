@@ -1,0 +1,116 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="app-consulta-heading" data-cy="ConsultaCreateUpdateHeading" appTranslate="clinicalLinkApp.consulta.home.createOrEditLabel">
+        Criar ou editar Consulta
+      </h2>
+
+      <div>
+        <app-alert-error></app-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" appTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.consulta.date" for="field_date">Date</label>
+          <div class="d-flex">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="datetime-local"
+              class="form-control"
+              name="date"
+              formControlName="date"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.consulta.reason" for="field_reason">Reason</label>
+          <input type="text" class="form-control" name="reason" id="field_reason" data-cy="reason" formControlName="reason" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.consulta.link" for="field_link">Link</label>
+          <input type="text" class="form-control" name="link" id="field_link" data-cy="link" formControlName="link" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.consulta.status" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'clinicalLinkApp.StatusConsulta.null' | translate }}</option>
+            <option *ngFor="let statusConsulta of statusConsultaValues" [value]="statusConsulta">
+              {{ 'clinicalLinkApp.StatusConsulta.' + statusConsulta | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.consulta.avaliacao" for="field_avaliacao">Avaliacao</label>
+          <select
+            class="form-control"
+            id="field_avaliacao"
+            data-cy="avaliacao"
+            name="avaliacao"
+            formControlName="avaliacao"
+            [compareWith]="compareAvaliacao"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="avaliacaoOption" *ngFor="let avaliacaoOption of avaliacaosCollection">{{ avaliacaoOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.consulta.prestador" for="field_prestador">Prestador</label>
+          <select
+            class="form-control"
+            id="field_prestador"
+            data-cy="prestador"
+            name="prestador"
+            formControlName="prestador"
+            [compareWith]="compareEspecialista"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="especialistaOption" *ngFor="let especialistaOption of especialistasSharedCollection">
+              {{ especialistaOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.consulta.cliente" for="field_cliente">Cliente</label>
+          <select
+            class="form-control"
+            id="field_cliente"
+            data-cy="cliente"
+            name="cliente"
+            formControlName="cliente"
+            [compareWith]="compareUsuario"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="usuarioOption" *ngFor="let usuarioOption of usuariosSharedCollection">{{ usuarioOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span appTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span appTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

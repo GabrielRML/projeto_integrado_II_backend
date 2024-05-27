@@ -1,0 +1,39 @@
+{
+  "clinicalLinkApp": {
+    "especialista": {
+      "home": {
+        "title": "Especialistas",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Especialista",
+        "createOrEditLabel": "Crear o editar Especialista",
+        "notFound": "Ningún Especialistas encontrado"
+      },
+      "created": "Un nuevo Especialista ha sido creado con el identificador {{ param }}",
+      "updated": "Un Especialista ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Especialista ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Especialista {{ id }}?"
+      },
+      "detail": {
+        "title": "Especialista"
+      },
+      "id": "ID",
+      "cpf": "Cpf",
+      "identification": "Identification",
+      "birthDate": "Birth Date",
+      "description": "Description",
+      "price": "Price",
+      "timeSession": "Time Session",
+      "specialistType": "Specialist Type",
+      "internalUser": "Internal User",
+      "especialidadeEspecialista": "Especialidade Especialista",
+      "avaliacao": "Avaliacao",
+      "consulta": "Consulta",
+      "especialista": "Especialista",
+      "estado": "Estado",
+      "cidade": "Cidade",
+      "universidade": "Universidade",
+      "supervisorId": "Supervisor Id"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="app-cidade-heading" data-cy="CidadeCreateUpdateHeading" appTranslate="clinicalLinkApp.cidade.home.createOrEditLabel">
+        Criar ou editar Cidade
+      </h2>
+
+      <div>
+        <app-alert-error></app-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" appTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.cidade.nome" for="field_nome">Nome</label>
+          <input type="text" class="form-control" name="nome" id="field_nome" data-cy="nome" formControlName="nome" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.cidade.sigla" for="field_sigla">Sigla</label>
+          <input type="text" class="form-control" name="sigla" id="field_sigla" data-cy="sigla" formControlName="sigla" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" appTranslate="clinicalLinkApp.cidade.estado" for="field_estado">Estado</label>
+          <select
+            class="form-control"
+            id="field_estado"
+            data-cy="estado"
+            name="estado"
+            formControlName="estado"
+            [compareWith]="compareEstado"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="estadoOption" *ngFor="let estadoOption of estadosSharedCollection">{{ estadoOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span appTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span appTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

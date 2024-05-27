@@ -1,0 +1,25 @@
+{
+  "clinicalLinkApp": {
+    "especialidade": {
+      "home": {
+        "title": "Especialidades",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Especialidade",
+        "createOrEditLabel": "Criar ou editar Especialidade",
+        "notFound": "Nenhum Especialidade encontrado"
+      },
+      "created": "Um novo Especialidade foi criado com o identificador {{ param }}",
+      "updated": "Um Especialidade foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Especialidade foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Especialidade {{ id }}?"
+      },
+      "detail": {
+        "title": "Especialidade"
+      },
+      "id": "ID",
+      "name": "Name",
+      "especialidadeEspecialista": "Especialidade Especialista"
+    }
+  }
+}

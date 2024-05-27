@@ -1,0 +1,41 @@
+{
+  "generator-jhipster": {
+    "applicationIndex": 0,
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "ClinicalLink",
+    "buildTool": "gradle",
+    "cacheProvider": "caffeine",
+    "clientFramework": "angular",
+    "clientPackageManager": "npm",
+    "clientTheme": "flatly",
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "devServerPort": 4200,
+    "dtoSuffix": "Dto",
+    "enableHibernateCache": true,
+    "enableTranslation": true,
+    "entities": [
+      "Usuario",
+      "Especialista",
+      "Universidade",
+      "Especialidade",
+      "EspecialidadeEspecialista",
+      "Avaliacao",
+      "Consulta",
+      "Estado",
+      "Cidade"
+    ],
+    "jhiPrefix": "app",
+    "jhipsterVersion": "8.0.0",
+    "jwtSecretKey": "MWJhMmNmZTcwZWJmZDgxY2NmYWNjZjQ4OTY4ZTRiMWQxNDRiMWIwMjQ5ZjI1OTcwNDI2MjI3NzZiYjViNzc5MmZhMjMxNDMzZTA0OWM1OGQxMjg2ZTdiNzliZjM4MzhhMzI1YTM4NTc3ZDg5MmE4N2Q3ZTJiMTExZmMxMTMwY2U=",
+    "languages": ["pt-br", "en", "es"],
+    "lastLiquibaseTimestamp": 1716847264000,
+    "monorepository": true,
+    "nativeLanguage": "pt-br",
+    "packageFolder": "com/clinicallink/app",
+    "packageName": "com.clinicallink.app",
+    "prodDatabaseType": "mysql",
+    "skipCommitHook": true
+  }
+}

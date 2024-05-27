@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity EspecialidadeEspecialista.
+    -->
+    <changeSet id="20240527215704-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="especialidade_id"
+                                 baseTableName="especialidade_especialista"
+                                 constraintName="fk_especialidade_especialista__especialidade_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="especialidade"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="especialista_id"
+                                 baseTableName="especialidade_especialista"
+                                 constraintName="fk_especialidade_especialista__especialista_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="especialista"
+                                 />
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="especialista">
+      <h2 data-cy="especialistaDetailsHeading"><span appTranslate="clinicalLinkApp.especialista.detail.title">Especialista</span></h2>
+
+      <hr />
+
+      <app-alert-error></app-alert-error>
+
+      <app-alert></app-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span appTranslate="global.field.id">Código</span></dt>
+        <dd>
+          <span>{{ especialista.id }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.cpf">Cpf</span></dt>
+        <dd>
+          <span>{{ especialista.cpf }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.identification">Identification</span></dt>
+        <dd>
+          <span>{{ especialista.identification }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.birthDate">Birth Date</span></dt>
+        <dd>
+          <span>{{ especialista.birthDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.description">Description</span></dt>
+        <dd>
+          <span>{{ especialista.description }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.price">Price</span></dt>
+        <dd>
+          <span>{{ especialista.price }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.timeSession">Time Session</span></dt>
+        <dd>
+          <span>{{ especialista.timeSession }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.specialistType">Specialist Type</span></dt>
+        <dd>
+          <span appTranslate="{{ 'clinicalLinkApp.SpecialistType.' + especialista.specialistType }}">{{
+            especialista.specialistType
+          }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.internalUser">Internal User</span></dt>
+        <dd>
+          <span>{{ especialista.internalUser?.id }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.estado">Estado</span></dt>
+        <dd>
+          <div *ngIf="especialista.estado">
+            <a [routerLink]="['/estado', especialista.estado.id, 'view']">{{ especialista.estado.id }}</a>
+          </div>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.cidade">Cidade</span></dt>
+        <dd>
+          <div *ngIf="especialista.cidade">
+            <a [routerLink]="['/cidade', especialista.cidade.id, 'view']">{{ especialista.cidade.id }}</a>
+          </div>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.universidade">Universidade</span></dt>
+        <dd>
+          <div *ngIf="especialista.universidade">
+            <a [routerLink]="['/universidade', especialista.universidade.id, 'view']">{{ especialista.universidade.id }}</a>
+          </div>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.especialista.supervisorId">Supervisor Id</span></dt>
+        <dd>
+          <div *ngIf="especialista.supervisorId">
+            <a [routerLink]="['/especialista', especialista.supervisorId.id, 'view']">{{ especialista.supervisorId.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span appTranslate="entity.action.back">Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/especialista', especialista.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span appTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>

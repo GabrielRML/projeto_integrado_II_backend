@@ -1,0 +1,44 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527220004",
+  "dto": "mapstruct",
+  "entityTableName": "estado",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sigla",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Estado",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "cidade",
+      "otherEntityRelationshipName": "estado",
+      "relationshipName": "cidade",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "usuario",
+      "otherEntityRelationshipName": "estado",
+      "relationshipName": "usuario",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "especialista",
+      "otherEntityRelationshipName": "estado",
+      "relationshipName": "especialista",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

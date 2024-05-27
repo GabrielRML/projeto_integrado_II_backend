@@ -1,0 +1,10 @@
+{
+  "clinicalLinkApp": {
+    "SpecialistType": {
+      "null": "",
+      "SUPERVISOR": "SUPERVISOR",
+      "PSICOLOGO": "PSICOLOGO",
+      "ALUNO": "ALUNO"
+    }
+  }
+}

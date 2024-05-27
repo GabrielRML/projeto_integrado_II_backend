@@ -1,0 +1,28 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527215704",
+  "dto": "mapstruct",
+  "entityTableName": "especialidade_especialista",
+  "fields": [],
+  "jpaMetamodelFiltering": true,
+  "name": "EspecialidadeEspecialista",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "especialidade",
+      "otherEntityRelationshipName": "especialidadeEspecialista",
+      "relationshipName": "especialidade",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "especialista",
+      "otherEntityRelationshipName": "especialidadeEspecialista",
+      "relationshipName": "especialista",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

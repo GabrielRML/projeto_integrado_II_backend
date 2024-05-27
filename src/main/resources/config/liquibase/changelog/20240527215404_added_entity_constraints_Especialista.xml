@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Especialista.
+    -->
+    <changeSet id="20240527215404-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="internal_user_id"
+                                 baseTableName="especialista"
+                                 constraintName="fk_especialista__internal_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="app_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="estado_id"
+                                 baseTableName="especialista"
+                                 constraintName="fk_especialista__estado_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="estado"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="cidade_id"
+                                 baseTableName="especialista"
+                                 constraintName="fk_especialista__cidade_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cidade"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="universidade_id"
+                                 baseTableName="especialista"
+                                 constraintName="fk_especialista__universidade_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="universidade"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="supervisor_id_id"
+                                 baseTableName="especialista"
+                                 constraintName="fk_especialista__supervisor_id_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="especialista"
+                                 />
+    </changeSet>
+</databaseChangeLog>

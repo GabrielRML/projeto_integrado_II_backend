@@ -1,0 +1,58 @@
+{
+  "applications": ["ClinicalLink"],
+  "changelogDate": "20240527215304",
+  "dto": "mapstruct",
+  "entityTableName": "usuario",
+  "fields": [
+    {
+      "fieldName": "cpf",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "birthDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Usuario",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "relationshipName": "internalUser",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "avaliacao",
+      "otherEntityRelationshipName": "avaliador",
+      "relationshipName": "avaliacao",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "consulta",
+      "otherEntityRelationshipName": "cliente",
+      "relationshipName": "consulta",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "estado",
+      "otherEntityRelationshipName": "usuario",
+      "relationshipName": "estado",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "cidade",
+      "otherEntityRelationshipName": "usuario",
+      "relationshipName": "cidade",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

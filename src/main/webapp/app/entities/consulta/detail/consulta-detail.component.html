@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="consulta">
+      <h2 data-cy="consultaDetailsHeading"><span appTranslate="clinicalLinkApp.consulta.detail.title">Consulta</span></h2>
+
+      <hr />
+
+      <app-alert-error></app-alert-error>
+
+      <app-alert></app-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span appTranslate="global.field.id">Código</span></dt>
+        <dd>
+          <span>{{ consulta.id }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.consulta.date">Date</span></dt>
+        <dd>
+          <span>{{ consulta.date | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.consulta.reason">Reason</span></dt>
+        <dd>
+          <span>{{ consulta.reason }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.consulta.link">Link</span></dt>
+        <dd>
+          <span>{{ consulta.link }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.consulta.status">Status</span></dt>
+        <dd>
+          <span appTranslate="{{ 'clinicalLinkApp.StatusConsulta.' + consulta.status }}">{{ consulta.status }}</span>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.consulta.avaliacao">Avaliacao</span></dt>
+        <dd>
+          <div *ngIf="consulta.avaliacao">
+            <a [routerLink]="['/avaliacao', consulta.avaliacao.id, 'view']">{{ consulta.avaliacao.id }}</a>
+          </div>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.consulta.prestador">Prestador</span></dt>
+        <dd>
+          <div *ngIf="consulta.prestador">
+            <a [routerLink]="['/especialista', consulta.prestador.id, 'view']">{{ consulta.prestador.id }}</a>
+          </div>
+        </dd>
+        <dt><span appTranslate="clinicalLinkApp.consulta.cliente">Cliente</span></dt>
+        <dd>
+          <div *ngIf="consulta.cliente">
+            <a [routerLink]="['/usuario', consulta.cliente.id, 'view']">{{ consulta.cliente.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span appTranslate="entity.action.back">Voltar</span>
+      </button>
+
+      <button type="button" [routerLink]="['/consulta', consulta.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span appTranslate="entity.action.edit">Editar</span>
+      </button>
+    </div>
+  </div>
+</div>
