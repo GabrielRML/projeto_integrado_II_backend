@@ -20,7 +20,7 @@
             <column name="identification" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="birth_date" type="${datetimeType}">
+            <column name="birth_date" type="timestamp">
                 <constraints nullable="true" />
             </column>
             <column name="description" type="varchar(255)">
@@ -52,7 +52,7 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-        <dropDefaultValue tableName="especialista" columnName="birth_date" columnDataType="${datetimeType}"/>
+        <dropDefaultValue tableName="especialista" columnName="birth_date" columnDataType="timestamp"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

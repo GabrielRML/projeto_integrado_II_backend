@@ -7,6 +7,7 @@ import com.clinicallink.app.service.MailService;
 import com.clinicallink.app.service.UserService;
 import com.clinicallink.app.service.dto.AdminUserDto;
 import com.clinicallink.app.service.dto.PasswordChangeDTO;
+import com.clinicallink.app.service.dto.UserDto;
 import com.clinicallink.app.web.rest.errors.*;
 import com.clinicallink.app.web.rest.vm.KeyAndPasswordVM;
 import com.clinicallink.app.web.rest.vm.ManagedUserVM;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -56,12 +58,13 @@ public class AccountResource {
      */
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public ResponseEntity<UserDto> registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
         if (isPasswordLengthInvalid(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
-        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
-        mailService.sendActivationEmail(user);
+        UserDto user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+        return ResponseEntity.ok().body(user);
+        //mailService.sendActivationEmail(user);
     }
 
     /**

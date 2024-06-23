@@ -9,6 +9,8 @@ import com.clinicallink.app.security.AuthoritiesConstants;
 import com.clinicallink.app.security.SecurityUtils;
 import com.clinicallink.app.service.dto.AdminUserDto;
 import com.clinicallink.app.service.dto.UserDto;
+import com.clinicallink.app.service.mapper.UserMapper;
+
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -41,16 +43,20 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private final UserMapper userMapper;
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        CacheManager cacheManager,
+        UserMapper userMapper
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userMapper = userMapper;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -93,7 +99,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(AdminUserDto userDTO, String password) {
+    public UserDto registerUser(AdminUserDto userDTO, String password) {
         userRepository
             .findOneByLogin(userDTO.getLogin().toLowerCase())
             .ifPresent(existingUser -> {
@@ -132,7 +138,7 @@ public class UserService {
         userRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
-        return newUser;
+        return userMapper.toDtoLogin(newUser);
     }
 
     private boolean removeNonActivatedUser(User existingUser) {
